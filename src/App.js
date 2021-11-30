@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bigrid">
+      <textarea
+        placeholder="Your comments here. Remember, be nice!"
+        maxLength="500"
+        name="comments"
+      ></textarea>
+      <ul>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+        <li>bs</li>
+      </ul>
+      <div className="area">placegolder</div>
     </div>
   );
 }
