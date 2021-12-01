@@ -6,7 +6,7 @@ function App() {
   useEffect(() => {
     axios
       .get(
-        "api.openweathermap.org/data/2.5/weather?zip=78736,us&appid=3772097231055e1aad10b35fd81157ab"
+        "http://api.weatherapi.com/v1/current.json?key=3e4f925442a1460797d180312213011&q=Austin&aqi=no"
       )
       .then((res) => {
         console.log(res);
