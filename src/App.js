@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect } from "react";
 import "./App.css";
 
+require("dotenv").config();
 const KEY = process.env.REACT_APP_API_KEY;
 
 function App() {
