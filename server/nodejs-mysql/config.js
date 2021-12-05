@@ -16,5 +16,3 @@ const config = {
 };
 
 module.exports = config;
-
-// mysql://b7604358d3e10e:3f876fcd@us-cdbr-east-04.cleardb.com/heroku_dab1724f9160427?reconnect=true
