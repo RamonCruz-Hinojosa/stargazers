@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 
 require("dotenv").config();
-const KEY = process.env.REACT_APP_API_KEY;
+const keys = process.env.REACT_APP_API_KEY;
 
 const Dashboard = () => {
   const [post, setPost] = useState([]);
   const [text, setText] = useState("");
   const [user, setUser] = useState({});
-  const [weather, setWeather] = useState("");
+  const [weather, setWeather] = useState("test");
   const location = useLocation();
 
   // need weather state in p element
@@ -18,9 +18,7 @@ const Dashboard = () => {
     axios
       .get(`http://localhost:4200/post`)
       .then((res) => {
-        console.log(res.data.data);
         setPost(res.data.data);
-        console.log(post);
       })
       .catch((error) => {
         console.log(error);
@@ -29,7 +27,14 @@ const Dashboard = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.post);
+    axios
+      .get(
+        `http://api.weatherapi.com/v1/current.json?key=3e4f925442a1460797d180312213011&q=Austin&aqi=no`
+      )
+      .then((res) => {
+        console.log(keys);
+        // setWeather(res.data.data);
+      });
   };
 
   //  needs to call to weather api using e.target.elemets.city.value
@@ -79,14 +84,14 @@ const Dashboard = () => {
         ))}
       </ul>
       <div className="area">
-        <form>
+        <form onClick={handleSubmit}>
           <label>
-            City:
+            Zip Code:
             <input type="text" name="city" />
           </label>
-          <input type="submit" value="search" onClick={handleSubmit} />
+          <input type="submit" value="search" />
         </form>
-        <p></p>
+        <p>{weather}</p>
       </div>
     </div>
   );
