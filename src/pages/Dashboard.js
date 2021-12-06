@@ -48,7 +48,7 @@ const Dashboard = () => {
     e.preventDefault();
     axios
       .get(
-        `http://api.weatherapi.com/v1/astronomy.json?key=${process.env.REACT_APP_API_KEY}&q=Austin&dt=${now}`
+        `https://api.weatherapi.com/v1/astronomy.json?key=${process.env.REACT_APP_API_KEY}&q=Austin&dt=${now}`
       )
       .then((res) => {
         console.log(res.data);
