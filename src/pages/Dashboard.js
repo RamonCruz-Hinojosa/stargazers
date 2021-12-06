@@ -13,8 +13,6 @@ const Dashboard = () => {
   const [astro, setAstro] = useState({});
   const location = useLocation();
 
-  // need weather state in p element
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_SERVER_HOST}/post`)
@@ -56,9 +54,6 @@ const Dashboard = () => {
       });
   };
 
-  //  needs to call to weather api using e.target.elemets.city.value
-  // return data to weather state and display in div
-  //you can log in with incorrect credentials but if you try to post a comment the page will error out!!!
   const handlePost = (e) => {
     setText(e.target.value);
   };
@@ -78,9 +73,6 @@ const Dashboard = () => {
       console.log("sent");
     }
   };
-  // use env file to hide api key, make function to make li items pop up as fake comment posts are fetched from fake data base, make the comment post a sign in only feature, figure out how to
-  // make requests for any city. the database side and sql need to be done carefully so i dont get hacked. .env is not good to hide secrets in react secrets are handled on the db side. dont
-  // enable github pages until api key and db stuff is safe.
 
   return (
     <div className="bigrid">

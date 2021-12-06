@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const post = require("../services/post");
 
-/* GET quotes listing. */
+
 router.get("/", async function (req, res, next) {
   try {
     res.json(await post.list(req));
