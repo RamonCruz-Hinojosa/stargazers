@@ -10,7 +10,10 @@ const Register = () => {
     const username = e.target.elements.username.value;
     const password = e.target.elements.password.value;
     axios
-      .post("http://localhost:4200/user", { username, password })
+      .post(`${process.env.REACT_APP_SERVER_HOST}//user`, {
+        username,
+        password,
+      })
       .then((req) => {
         navigate("/dashboard");
       });

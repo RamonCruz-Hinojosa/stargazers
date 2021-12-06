@@ -16,7 +16,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:4200/post`)
+      .get(`${process.env.REACT_APP_SERVER_HOST}/post`)
       .then((res) => {
         setPost(res.data.data);
       })
@@ -48,7 +48,7 @@ const Dashboard = () => {
     if (e.keyCode == 13 && e.shiftKey == false) {
       e.preventDefault();
       axios
-        .post("http://localhost:4200/post", {
+        .post(`${process.env.REACT_APP_SERVER_HOST}/post`, {
           post: text,
           author: location.state.user.username,
         })
