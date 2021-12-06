@@ -29,7 +29,7 @@ const Dashboard = () => {
     e.preventDefault();
     axios
       .get(
-        `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${e.target.elements.city.value}&aqi=no`
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${e.target.elements.city.value}&aqi=yes`
       )
       .then((res) => {
         console.log(res.data);
@@ -84,14 +84,25 @@ const Dashboard = () => {
         ))}
       </ul>
       <div className="area">
+        <h2>Search here to check weather conditions/astronomy events.</h2>
         <form onSubmit={handleSubmit}>
           <label>
-            Zip Code:
+            City or Zip Code:
             <input type="text" name="city" />
           </label>
           <button>search</button>
         </form>
-        <p>{weather?.current?.temp_f}</p>
+        <p>Current weather conditions</p>
+        <ul>
+          <li>Current temp {weather?.current?.temp_f}f</li>
+          <li>
+            <img
+              src={weather?.current?.condition?.icon}
+              alt="current weather img"
+            />
+            {weather?.current?.condition?.text}
+          </li>
+        </ul>
       </div>
     </div>
   );
