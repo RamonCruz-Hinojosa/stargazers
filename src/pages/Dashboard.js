@@ -9,7 +9,7 @@ const Dashboard = () => {
   const [post, setPost] = useState([]);
   const [text, setText] = useState("");
   const [user, setUser] = useState({});
-  const [weather, setWeather] = useState("test");
+  const [weather, setWeather] = useState({});
   const location = useLocation();
 
   // need weather state in p element
@@ -29,11 +29,11 @@ const Dashboard = () => {
     e.preventDefault();
     axios
       .get(
-        `http://api.weatherapi.com/v1/current.json?key=3e4f925442a1460797d180312213011&q=Austin&aqi=no`
+        `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${e.target.elements.city.value}&aqi=no`
       )
       .then((res) => {
-        console.log(keys);
-        // setWeather(res.data.data);
+        console.log(res.data);
+        setWeather(res.data);
       });
   };
 
@@ -84,14 +84,14 @@ const Dashboard = () => {
         ))}
       </ul>
       <div className="area">
-        <form onClick={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <label>
             Zip Code:
             <input type="text" name="city" />
           </label>
-          <input type="submit" value="search" />
+          <button>search</button>
         </form>
-        <p>{weather}</p>
+        <p>{weather?.current?.temp_f}</p>
       </div>
     </div>
   );
