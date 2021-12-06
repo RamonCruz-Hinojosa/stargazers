@@ -39,7 +39,7 @@ const Dashboard = () => {
 
   //  needs to call to weather api using e.target.elemets.city.value
   // return data to weather state and display in div
-
+  //you can log in with incorrect credentials but if you try to post a comment the page will error out!!!
   const handlePost = (e) => {
     setText(e.target.value);
   };
