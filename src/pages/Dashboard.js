@@ -30,7 +30,7 @@ const Dashboard = () => {
     e.preventDefault();
     axios
       .get(
-        `http://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${e.target.elements.city.value}&aqi=yes`
+        `https://api.weatherapi.com/v1/current.json?key=${process.env.REACT_APP_API_KEY}&q=${e.target.elements.city.value}&aqi=yes`
       )
       .then((res) => {
         console.log(res.data);
