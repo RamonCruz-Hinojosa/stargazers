@@ -26,7 +26,7 @@ const Dashboard = () => {
   }, []);
 
   const handleSubmit = (e) => {
-    console.log(today);
+    // console.log(today);
     e.preventDefault();
     axios
       .get(
