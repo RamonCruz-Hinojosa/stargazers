@@ -26,6 +26,7 @@ const Dashboard = () => {
   }, []);
 
   const handleSubmit = (e) => {
+    console.log(today);
     e.preventDefault();
     axios
       .get(
@@ -36,6 +37,18 @@ const Dashboard = () => {
         setWeather(res.data);
       });
   };
+
+  // const handleAstro = (e) => {
+  //   e.preventDefault();
+  //   axios
+  //     .get(
+  //       `http://api.weatherapi.com/v1/astronomy.json?key=${process.env.REACT_APP_API_KEY}&q=Austin&dt=2021-12-06`
+  //     )
+  //     .then((res) => {
+  //       console.log(res.data);
+  //       setWeather(res.data);
+  //     });
+  // };
 
   //  needs to call to weather api using e.target.elemets.city.value
   // return data to weather state and display in div
@@ -94,7 +107,8 @@ const Dashboard = () => {
         </form>
         <p>Current weather conditions</p>
         <ul>
-          <li>Current temp {weather?.current?.temp_f}f</li>
+          <li>Current temp {weather?.current?.temp_f}°f</li>
+          <li>Feels like {weather?.current?.feelslike_f}°f</li>
           <li>
             <img
               src={weather?.current?.condition?.icon}
