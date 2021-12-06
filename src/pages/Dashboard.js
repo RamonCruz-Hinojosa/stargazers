@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [text, setText] = useState("");
   const [user, setUser] = useState({});
   const [weather, setWeather] = useState({});
+  const [astro, setAstro] = useState({});
   const location = useLocation();
 
   // need weather state in p element
@@ -26,7 +27,6 @@ const Dashboard = () => {
   }, []);
 
   const handleSubmit = (e) => {
-    // console.log(today);
     e.preventDefault();
     axios
       .get(
@@ -38,17 +38,23 @@ const Dashboard = () => {
       });
   };
 
-  // const handleAstro = (e) => {
-  //   e.preventDefault();
-  //   axios
-  //     .get(
-  //       `http://api.weatherapi.com/v1/astronomy.json?key=${process.env.REACT_APP_API_KEY}&q=Austin&dt=2021-12-06`
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setWeather(res.data);
-  //     });
-  // };
+  const handleAstro = (e) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+    const day = today.getDate();
+    const now = `${year}-${month}-${day}`;
+    console.log(year, month, day);
+    e.preventDefault();
+    axios
+      .get(
+        `http://api.weatherapi.com/v1/astronomy.json?key=${process.env.REACT_APP_API_KEY}&q=Austin&dt=${now}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        setAstro(res.data);
+      });
+  };
 
   //  needs to call to weather api using e.target.elemets.city.value
   // return data to weather state and display in div
@@ -91,7 +97,7 @@ const Dashboard = () => {
       </form>
       <ul>
         {post.map((p) => (
-          <li>
+          <li className="comments">
             {p.author}:{p.post}
           </li>
         ))}
@@ -107,15 +113,24 @@ const Dashboard = () => {
         </form>
         <p>Current weather conditions</p>
         <ul>
-          <li>Current temp {weather?.current?.temp_f}°f</li>
-          <li>Feels like {weather?.current?.feelslike_f}°f</li>
-          <li>
-            <img
-              src={weather?.current?.condition?.icon}
-              alt="current weather img"
-            />
-            {weather?.current?.condition?.text}
-          </li>
+          <li>Current temp: {weather?.current?.temp_f}°f</li>
+          <li>Feels like: {weather?.current?.feelslike_f}°f</li>
+          <li>Condition: {weather?.current?.condition?.text}</li>
+        </ul>
+        <form onSubmit={handleAstro}>
+          <label>
+            City or Zip Code:
+            <input type="text" name="city" />
+          </label>
+          <button>search</button>
+        </form>
+        <p>check some cool astronomy stuff</p>
+        <ul>
+          <li>Phase: {astro?.astronomy?.astro?.moon_phase}</li>
+          <li>Moonrise: {astro?.astronomy?.astro?.moonrise}</li>
+          <li>Moonset: {astro?.astronomy?.astro?.moonset}</li>
+          <li>Sunrise: {astro?.astronomy?.astro?.sunrise}</li>
+          <li>Sunset: {astro?.astronomy?.astro?.sunset}</li>
         </ul>
       </div>
     </div>
