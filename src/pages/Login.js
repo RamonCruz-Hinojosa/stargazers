@@ -9,9 +9,11 @@ const Login = () => {
     e.preventDefault();
     const username = e.target.elements.username.value;
     const password = e.target.elements.password.value;
-    axios.post("/login", { username, password }).then((req) => {
-      navigate("/dashboard", { state: { user: req.data.data } });
-    });
+    axios
+      .post("http://localhost:4200/login", { username, password })
+      .then((req) => {
+        navigate("/dashboard", { state: { user: req.data.data } });
+      });
   };
 
   return (
