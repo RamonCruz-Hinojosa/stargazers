@@ -9,13 +9,21 @@ const Register = () => {
     e.preventDefault();
     const username = e.target.elements.username.value;
     const password = e.target.elements.password.value;
+    if (username.length <= 5) {
+      alert("username too short");
+      return;
+    }
+    if (password.length <= 5) {
+      alert("password too short");
+      return;
+    }
     axios
-      .post(`${process.env.REACT_APP_SERVER_HOST}//user`, {
+      .post(`${process.env.REACT_APP_SERVER_HOST}/user`, {
         username,
         password,
       })
       .then((req) => {
-        navigate("/dashboard");
+        navigate("/dashboard", { state: { user: req.data.data } });
       });
   };
 

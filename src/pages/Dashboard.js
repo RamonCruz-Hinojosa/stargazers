@@ -1,6 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import Chatbox from "../components/dashboard/Chatbox";
+import Chatposts from "../components/dashboard/Chatposts";
+import Currentastro from "../components/dashboard/Currentastro";
+import Currentweather from "../components/dashboard/Currentweather";
 
 require("dotenv").config();
 const keys = process.env.REACT_APP_API_KEY;
@@ -8,10 +12,18 @@ const keys = process.env.REACT_APP_API_KEY;
 const Dashboard = () => {
   const [post, setPost] = useState([]);
   const [text, setText] = useState("");
-  const [user, setUser] = useState({});
   const [weather, setWeather] = useState({});
   const [astro, setAstro] = useState({});
   const location = useLocation();
+
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (!location?.state?.user) {
+      navigate("/");
+      return;
+    }
+  });
 
   useEffect(() => {
     axios
@@ -59,7 +71,8 @@ const Dashboard = () => {
   };
 
   const submitPost = (e) => {
-    if (e.keyCode == 13 && e.shiftKey == false) {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      console.log("location here", location.state);
       e.preventDefault();
       axios
         .post(`${process.env.REACT_APP_SERVER_HOST}/post`, {
@@ -76,54 +89,11 @@ const Dashboard = () => {
 
   return (
     <div className="bigrid">
-      <form>
-        <textarea
-          placeholder="Your comments here. Remember, be nice!"
-          maxLength="500"
-          name="post"
-          className="comment"
-          value={text}
-          onChange={handlePost}
-          onKeyDown={submitPost}
-        ></textarea>
-      </form>
-      <ul>
-        {post.map((p) => (
-          <li className="comments">
-            {p.author}:{p.post}
-          </li>
-        ))}
-      </ul>
+      <Chatbox text={text} handlePost={handlePost} submitPost={submitPost} />
+      <Chatposts post={post} />
       <div className="area">
-        <h2>Search here to check weather conditions/astronomy events.</h2>
-        <form onSubmit={handleSubmit}>
-          <label>
-            City or Zip Code:
-            <input type="text" name="city" />
-          </label>
-          <button>search</button>
-        </form>
-        <p>Current weather conditions</p>
-        <ul>
-          <li>Current temp: {weather?.current?.temp_f}°f</li>
-          <li>Feels like: {weather?.current?.feelslike_f}°f</li>
-          <li>Condition: {weather?.current?.condition?.text}</li>
-        </ul>
-        <form onSubmit={handleAstro}>
-          <label>
-            City or Zip Code:
-            <input type="text" name="city" />
-          </label>
-          <button>search</button>
-        </form>
-        <p>check some cool astronomy stuff</p>
-        <ul>
-          <li>Phase: {astro?.astronomy?.astro?.moon_phase}</li>
-          <li>Moonrise: {astro?.astronomy?.astro?.moonrise}</li>
-          <li>Moonset: {astro?.astronomy?.astro?.moonset}</li>
-          <li>Sunrise: {astro?.astronomy?.astro?.sunrise}</li>
-          <li>Sunset: {astro?.astronomy?.astro?.sunset}</li>
-        </ul>
+        <Currentweather weather={weather} handleSubmit={handleSubmit} />
+        <Currentastro astro={astro} handleAstro={handleAstro} />
       </div>
     </div>
   );

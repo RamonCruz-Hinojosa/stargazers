@@ -5,7 +5,7 @@ const Form = (props) => {
   return (
     <form onSubmit={props.onSubmit}>
       <input name="username"></input>
-      <input name="password"></input>
+      <input name="password" type="password"></input>
       <button>submit</button>
       <Link to="/">login</Link>
     </form>
